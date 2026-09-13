@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>雑談家ひとねの本ダイジェスト版</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#eee;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Yu Gothic",sans-serif;color:#111}
+main{max-width:520px;margin:0 auto;min-height:100vh;background:#fff;padding:28px 16px 56px}
+h1{text-align:center;font-size:28px;margin:8px 0 6px}
+.lead{text-align:center;color:#777;margin:0 0 26px;font-size:15px}
+#shelf{display:flex;flex-direction:column;gap:28px}
+.book{display:block;text-decoration:none;color:inherit}
+.cover{display:block;width:100%;height:auto;border-radius:4px;box-shadow:0 8px 24px rgba(0,0,0,.16)}
+.tap{text-align:center;margin-top:9px;color:#777;font-size:14px}
+.catalog-link{display:block;border:1px solid #bbb;border-radius:8px;padding:22px 14px;text-align:center;text-decoration:none;color:#333;background:#fafafa;font-size:18px;font-weight:700}
+.catalog-link span{display:block;margin-top:6px;color:#777;font-size:13px;font-weight:400}
+.next-link{margin-top:28px}
+.coming{border:1px solid #ddd;border-radius:8px;padding:34px 12px;text-align:center;color:#777;background:#fafafa}
+.coming strong{display:block;font-size:24px;letter-spacing:.04em;color:#444;margin-bottom:5px}
+footer{text-align:center;color:#aaa;font-size:12px;margin-top:36px}
+</style>
+</head>
+<body>
+<main>
+<h1>雑談家ひとねの本<br>ダイジェスト版</h1>
+<p class="lead">気になる表紙をタップ</p>
+
+<section id="shelf"></section>
+
+<a class="catalog-link next-link" id="nextCatalog" href="#" hidden>
+  次のダイジェスト版Webカタログへ
+  <span>16冊目の入口</span>
+</a>
+
+<a class="catalog-link" id="fullCatalog" href="https://bunpuku-hitone.github.io/hitone-books/" target="_blank" rel="noopener">
+  雑談家ひとねの本 Webカタログへ
+  <span>本編の本棚を見る</span>
+</a>
+
+<footer>一冊ずつ、縦に並ぶスマホ本棚です。</footer>
+</main>
+
+<script src="books.js"></script>
+<script>
+const shelf = document.getElementById("shelf");
+const published = BOOKS
+  .filter(b => b.status === "published")
+  .slice(0, 15);
+
+published.forEach(b => {
+  const a = document.createElement("a");
+  a.className = "book";
+  a.href = b.amazon || "#";
+  a.target = "_blank";
+  a.rel = "noopener";
+
+  const img = document.createElement("img");
+  img.className = "cover";
+  img.src = b.image;
+  img.alt = b.title;
+
+  const tap = document.createElement("div");
+  tap.className = "tap";
+  tap.textContent = "表紙をタップ → Amazon";
+
+  a.append(img, tap);
+  shelf.appendChild(a);
+});
+
+if (published.length === 0) {
+  const c = document.createElement("div");
+  c.className = "coming";
+  c.innerHTML = "<strong>Coming Soon</strong>最初のダイジェスト版を準備中です";
+  shelf.appendChild(c);
+}
+
+if (NEXT_CATALOG_URL) {
+  const next = document.getElementById("nextCatalog");
+  next.href = NEXT_CATALOG_URL;
+  next.hidden = false;
+}
+</script>
+</body>
+</html>
