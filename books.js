@@ -1,6 +1,7 @@
 const BOOKS = [
   {"no":5,"status":"published","title":"どうしたら、1か月でKindle出版できるの？","image":"book5.jpg","amazon":"https://www.amazon.co.jp/dp/B0HJWKN858"},
   {"no":6,"status":"published","title":"なぜ私は、儲からない仕事を毎日しているのか？","image":"book6.jpg","amazon":"https://www.amazon.co.jp/dp/B0HJZ3FH7K"},
+  {"no":7,"status":"published","title":"こんな在宅ワーク、あり？ インフレ時代の「年金＋α」、どうする？","image":"book7.jpg","amazon":"https://www.amazon.co.jp/dp/B0HK36PQ8B"},
   {"no":1,"status":"published","title":"副業なしで、副収入ってありますか？","image":"book1.jpg","amazon":"https://www.amazon.co.jp/dp/B0HJWBQL7Y"},
   {"no":2,"status":"published","title":"64歳、定年後の仕事。01 我人生をどう記録するか","image":"book2.jpg","amazon":"https://www.amazon.co.jp/dp/B0H11RG43L"},
   {"no":3,"status":"published","title":"64歳、定年後の仕事。02 高血圧を薬なしで見ていた記録","image":"book3.jpg","amazon":"https://www.amazon.co.jp/dp/B0H1KS9QG4"},
