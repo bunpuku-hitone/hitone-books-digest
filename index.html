@@ -45,16 +45,17 @@ footer{text-align:center;color:#aaa;font-size:12px;margin-top:36px}
 <script src="books.js"></script>
 <script>
 const shelf = document.getElementById("shelf");
-const published = BOOKS
-  .filter(b => b.status === "published")
-  .slice(0, 15);
-
+const published = BOOKS.slice(0, 15);
 published.forEach(b => {
   const a = document.createElement("a");
   a.className = "book";
+if (b.status === "coming") {
+  a.href = "coming.html?book=" + b.no;
+} else {
   a.href = b.amazon || "#";
   a.target = "_blank";
   a.rel = "noopener";
+}
 
   const img = document.createElement("img");
   img.className = "cover";
@@ -63,7 +64,7 @@ published.forEach(b => {
 
   const tap = document.createElement("div");
   tap.className = "tap";
-  tap.textContent = "表紙をタップ → Amazon";
+  tap.textContent = b.status === "coming" ? "表紙をタップ → Coming Soon" : "表紙をタップ → Amazon";
 
   a.append(img, tap);
   shelf.appendChild(a);
