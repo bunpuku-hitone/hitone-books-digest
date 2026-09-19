@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>管理画面｜99円シリーズ</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#eee;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Yu Gothic",sans-serif;color:#111}
+main{max-width:520px;margin:0 auto;min-height:100vh;background:#fff;padding:28px 16px 56px}
+h1{text-align:center;font-size:25px;margin:8px 0 28px}
+.login{max-width:320px;margin:0 auto;text-align:center}
+label{display:block;color:#555;margin-bottom:10px}
+input{width:100%;font-size:28px;letter-spacing:.35em;text-align:center;padding:12px;border:1px solid #bbb;border-radius:8px}
+button{width:100%;margin-top:14px;padding:14px;border:0;border-radius:8px;background:#222;color:#fff;font-size:17px;font-weight:700}
+#error{min-height:24px;color:#b22;margin:12px 0 0}
+#stats[hidden]{display:none}
+.summary{text-align:center;background:#f5f5f5;border-radius:8px;padding:16px;margin-bottom:18px}
+.summary strong{display:block;font-size:34px}
+.row{display:grid;grid-template-columns:52px 1fr 62px;gap:10px;align-items:center;padding:14px 4px;border-bottom:1px solid #eee}
+.no{color:#777}
+.title{font-size:14px;line-height:1.45}
+.count{text-align:right;font-size:20px;font-weight:700}
+.back{display:block;text-align:center;margin-top:30px;color:#555}
+</style>
+</head>
+<body>
+<main>
+<h1>99円シリーズ<br>クリック回数</h1>
+<section id="login" class="login">
+<label for="pin">管理者番号（6桁）</label>
+<input id="pin" type="password" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code">
+<button id="show" type="button">回数を見る</button>
+<p id="error"></p>
+</section>
+<section id="stats" hidden>
+<div class="summary">合計クリック数<strong id="total">0</strong></div>
+<div id="rows"></div>
+</section>
+<a class="back" href="index.html">← カタログへ戻る</a>
+</main>
+<script src="books.js"></script>
+<script>
+const API_URL = "https://aiuemon-web-1.onrender.com";
+const login = document.getElementById("login");
+const pin = document.getElementById("pin");
+const button = document.getElementById("show");
+const error = document.getElementById("error");
+const stats = document.getElementById("stats");
+const rows = document.getElementById("rows");
+
+async function showStats() {
+  if (!/^\d{6}$/.test(pin.value)) {
+    error.textContent = "6桁の数字を入力してください。";
+    return;
+  }
+  button.disabled = true;
+  button.textContent = "確認中…";
+  error.textContent = "";
+  try {
+    const response = await fetch(API_URL + "/catalog/stats", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({pin: pin.value})
+    });
+    if (response.status === 401) {
+      error.textContent = "管理者番号が違います。";
+      return;
+    }
+    if (!response.ok) throw new Error("request failed");
+    const data = await response.json();
+    let total = 0;
+    rows.replaceChildren();
+    BOOKS.forEach(book => {
+      const count = Number(data.counts["book" + book.no] || 0);
+      total += count;
+      const row = document.createElement("div");
+      row.className = "row";
+      const no = document.createElement("div");
+      no.className = "no";
+      no.textContent = "No." + book.no;
+      const title = document.createElement("div");
+      title.className = "title";
+      title.textContent = book.title;
+      const value = document.createElement("div");
+      value.className = "count";
+      value.textContent = count + "回";
+      row.append(no, title, value);
+      rows.appendChild(row);
+    });
+    document.getElementById("total").textContent = total;
+    login.hidden = true;
+    stats.hidden = false;
+  } catch (_) {
+    error.textContent = "現在、回数を取得できません。";
+  } finally {
+    button.disabled = false;
+    button.textContent = "回数を見る";
+  }
+}
+button.addEventListener("click", showStats);
+pin.addEventListener("keydown", event => {
+  if (event.key === "Enter") showStats();
+});
+pin.focus();
+</script>
+</body>
+</html>

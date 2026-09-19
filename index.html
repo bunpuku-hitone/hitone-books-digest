@@ -20,6 +20,7 @@ h1{text-align:center;font-size:28px;margin:8px 0 6px}
 .coming{border:1px solid #ddd;border-radius:8px;padding:34px 12px;text-align:center;color:#777;background:#fafafa}
 .coming strong{display:block;font-size:24px;letter-spacing:.04em;color:#444;margin-bottom:5px}
 footer{text-align:center;color:#aaa;font-size:12px;margin-top:36px}
+.admin-link{display:inline-block;margin-top:10px;color:#aaa;font-size:12px;text-decoration:none}
 </style>
 </head>
 <body>
@@ -35,10 +36,11 @@ footer{text-align:center;color:#aaa;font-size:12px;margin-top:36px}
   雑談家ひとねの本 Webカタログへ
   <span>本編の本棚を見る</span>
 </a>
-<footer>一冊ずつ、縦に並ぶスマホ本棚です。</footer>
+<footer>一冊ずつ、縦に並ぶスマホ本棚です。<br><a class="admin-link" href="admin.html">管理者</a></footer>
 </main>
 <script src="books.js"></script>
 <script>
+const API_URL = "https://aiuemon-web-1.onrender.com";
 const shelf = document.getElementById("shelf");
 const published = BOOKS.slice(0, 15);
 published.forEach(b => {
@@ -51,6 +53,13 @@ published.forEach(b => {
     a.target = "_blank";
     a.rel = "noopener";
   }
+  a.addEventListener("click", () => {
+    fetch(API_URL + "/catalog/click", {
+      method: "POST",
+      body: new URLSearchParams({book_no: String(b.no)}),
+      keepalive: true
+    }).catch(() => {});
+  });
   const img = document.createElement("img");
   img.className = "cover";
   img.src = b.image;
