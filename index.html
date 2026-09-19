@@ -26,22 +26,17 @@ footer{text-align:center;color:#aaa;font-size:12px;margin-top:36px}
 <main>
 <h1>雑談家ひとねの本<br>99円シリーズ</h1>
 <p class="lead">気になる表紙をタップ</p>
-
 <section id="shelf"></section>
-
 <a class="catalog-link next-link" id="nextCatalog" href="#" hidden>
   次のダイジェスト版Webカタログへ
   <span>16冊目の入口</span>
 </a>
-
 <a class="catalog-link" id="fullCatalog" href="https://bunpuku-hitone.github.io/hitone-books/" target="_blank" rel="noopener">
   雑談家ひとねの本 Webカタログへ
   <span>本編の本棚を見る</span>
 </a>
-
 <footer>一冊ずつ、縦に並ぶスマホ本棚です。</footer>
 </main>
-
 <script src="books.js"></script>
 <script>
 const shelf = document.getElementById("shelf");
@@ -49,34 +44,29 @@ const published = BOOKS.slice(0, 15);
 published.forEach(b => {
   const a = document.createElement("a");
   a.className = "book";
-if (b.status === "coming") {
-  a.href = "coming.html?book=" + b.no;
-} else {
-  a.href = b.amazon || "#";
-  a.target = "_blank";
-  a.rel = "noopener";
-}
-
+  if (b.status === "coming") {
+    a.href = b.detail || ("coming.html?book=" + b.no);
+  } else {
+    a.href = b.amazon || "#";
+    a.target = "_blank";
+    a.rel = "noopener";
+  }
   const img = document.createElement("img");
   img.className = "cover";
   img.src = b.image;
   img.alt = b.title;
-
   const tap = document.createElement("div");
   tap.className = "tap";
   tap.textContent = b.status === "coming" ? "表紙をタップ → Coming Soon" : "表紙をタップ → Amazon";
-
   a.append(img, tap);
   shelf.appendChild(a);
 });
-
 if (published.length === 0) {
   const c = document.createElement("div");
   c.className = "coming";
   c.innerHTML = "<strong>Coming Soon</strong>最初のダイジェスト版を準備中です";
   shelf.appendChild(c);
 }
-
 if (NEXT_CATALOG_URL) {
   const next = document.getElementById("nextCatalog");
   next.href = NEXT_CATALOG_URL;

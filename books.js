@@ -6,7 +6,8 @@ const BOOKS = [
   {"no":2,"status":"published","title":"64歳、定年後の仕事。01 我人生をどう記録するか","image":"book2.jpg","amazon":"https://www.amazon.co.jp/dp/B0H11RG43L"},
   {"no":3,"status":"published","title":"64歳、定年後の仕事。02 高血圧を薬なしで見ていた記録","image":"book3.jpg","amazon":"https://www.amazon.co.jp/dp/B0H1KS9QG4"},
   {"no":4,"status":"published","title":"64歳、定年後の仕事。03 雑談から生まれたYouTube","image":"book4.jpg","amazon":"https://www.amazon.co.jp/dp/B0GX33FHBL"},
-  {"no":8,"status":"coming","title":"定年後、AIで仕事とお金に困らない方法はあるのか？","image":"book8.jpg"}
+  {"no":8,"status":"coming","title":"定年後、AIで仕事とお金に困らない方法はあるのか？","image":"book8.jpg","detail":"coming.html"},
+  {"no":9,"status":"coming","title":"99万円で、年利30％超を狙う マイ・データセンターを作る","image":"book9.jpg","detail":"coming9.html"}
 ];
 
 // 2ページ目を作成した後、そのWebカタログURLを設定します。
