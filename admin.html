@@ -26,7 +26,7 @@ button{width:100%;margin-top:14px;padding:14px;border:0;border-radius:8px;backgr
 </head>
 <body>
 <main>
-<h1>99円シリーズ<br>クリック回数</h1>
+<h1>Webカタログ<br>クリック回数</h1>
 <section id="login" class="login">
 <label for="pin">管理者番号（6桁）</label>
 <input id="pin" type="password" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code">
@@ -71,6 +71,21 @@ async function showStats() {
     const data = await response.json();
     let total = 0;
     rows.replaceChildren();
+    const presentCount = Number(data.counts.present1 || 0);
+    total += presentCount;
+    const presentRow = document.createElement("div");
+    presentRow.className = "row";
+    const presentNo = document.createElement("div");
+    presentNo.className = "no";
+    presentNo.textContent = "Present1";
+    const presentTitle = document.createElement("div");
+    presentTitle.className = "title";
+    presentTitle.textContent = "はじまった、副業なしで副収入 プレゼント版";
+    const presentValue = document.createElement("div");
+    presentValue.className = "count";
+    presentValue.textContent = presentCount + "回";
+    presentRow.append(presentNo, presentTitle, presentValue);
+    rows.appendChild(presentRow);
     BOOKS.forEach(book => {
       const count = Number(data.counts["book" + book.no] || 0);
       total += count;
