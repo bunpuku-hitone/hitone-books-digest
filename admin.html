@@ -86,6 +86,23 @@ async function showStats() {
     presentValue.textContent = presentCount + "回";
     presentRow.append(presentNo, presentTitle, presentValue);
     rows.appendChild(presentRow);
+
+    const present2Count = Number(data.counts.present2 || 0);
+    total += present2Count;
+    const present2Row = document.createElement("div");
+    present2Row.className = "row";
+    const present2No = document.createElement("div");
+    present2No.className = "no";
+    present2No.textContent = "Present2";
+    const present2Title = document.createElement("div");
+    present2Title.className = "title";
+    present2Title.textContent = "あなたの商品、必要な人に届いていますか？ 商品告知パッケージ";
+    const present2Value = document.createElement("div");
+    present2Value.className = "count";
+    present2Value.textContent = present2Count + "回";
+    present2Row.append(present2No, present2Title, present2Value);
+    rows.appendChild(present2Row);
+
     BOOKS.forEach(book => {
       const count = Number(data.counts["book" + book.no] || 0);
       total += count;
