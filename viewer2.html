@@ -9,11 +9,12 @@
 html,body{margin:0;min-height:100%;background:#eee}
 body{font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Yu Gothic",sans-serif;color:#111}
 main{max-width:900px;margin:0 auto;min-height:100vh;background:#fff}
-header{position:sticky;top:0;z-index:1;display:flex;align-items:center;min-height:62px;padding:8px 16px;background:#fff;border-bottom:1px solid #ddd}
+header{position:sticky;top:0;z-index:2;display:flex;align-items:center;min-height:62px;padding:8px 16px;background:#fff;border-bottom:1px solid #ddd}
 .back{flex:none;color:#111;text-decoration:none;font-size:16px;font-weight:700;padding:10px 4px}
 h1{flex:1;font-size:20px;margin:0 0 0 12px;text-align:center}
-.pdf-wrap{height:calc(100vh - 62px)}
-.pdf-wrap iframe{display:block;width:100%;height:100%;border:0;background:#fff}
+.pages{padding:12px 0 24px}
+.page{display:block;width:100%;height:auto;margin:0 auto 12px;background:#fff}
+.status{text-align:center;padding:32px 16px;color:#666}
 </style>
 </head>
 <body>
@@ -22,9 +23,43 @@ h1{flex:1;font-size:20px;margin:0 0 0 12px;text-align:center}
 <a class="back" href="./">← カタログへ戻る</a>
 <h1>商品告知パッケージ</h1>
 </header>
-<div class="pdf-wrap">
-<iframe src="./%E3%83%97%E3%83%AC%E3%82%BC%E3%83%B3%E3%83%882.pdf" title="商品告知パッケージ PDF"></iframe>
-</div>
+<article id="pages" class="pages" aria-label="商品告知パッケージ PDF 本文">
+<div id="status" class="status">読み込み中です…</div>
+</article>
 </main>
+<script type="module">
+import * as pdfjsLib from "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs";
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs";
+
+const pages = document.getElementById("pages");
+const status = document.getElementById("status");
+
+try {
+  const pdf = await pdfjsLib.getDocument("./%E3%83%97%E3%83%AC%E3%82%BC%E3%83%B3%E3%83%882.pdf").promise;
+  status.remove();
+
+  for (let n = 1; n <= pdf.numPages; n++) {
+    const page = await pdf.getPage(n);
+    const base = page.getViewport({scale: 1});
+    const targetWidth = Math.min(1400, Math.max(800, window.innerWidth * 2));
+    const viewport = page.getViewport({scale: targetWidth / base.width});
+
+    const canvas = document.createElement("canvas");
+    canvas.className = "page";
+    canvas.width = Math.floor(viewport.width);
+    canvas.height = Math.floor(viewport.height);
+    canvas.setAttribute("aria-label", n + "ページ目");
+    pages.appendChild(canvas);
+
+    await page.render({
+      canvasContext: canvas.getContext("2d"),
+      viewport
+    }).promise;
+  }
+} catch (e) {
+  status.textContent = "PDFを表示できませんでした。";
+}
+</script>
 </body>
 </html>
