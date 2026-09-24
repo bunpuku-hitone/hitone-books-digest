@@ -33,6 +33,10 @@ footer{text-align:center;color:#aaa;font-size:12px;margin-top:36px}
   <img class="cover" src="present1.jpg" alt="はじまった、副業なしで副収入 プレゼント版">
   <div class="tap">表紙をタップ → プレゼント版を読む</div>
 </a>
+<a class="book" id="present2" href="%E3%83%97%E3%83%AC%E3%82%BC%E3%83%B3%E3%83%882.pdf" target="_blank" rel="noopener">
+  <img class="cover" src="present2.jpg" alt="あなたの商品、必要な人に届いていますか？ あなたの商品告知パッケージ">
+  <div class="tap">表紙をタップ → 商品告知パッケージを読む</div>
+</a>
 </section>
 <a class="catalog-link next-link" id="nextCatalog" href="#" hidden>
   次のWebカタログへ
@@ -51,6 +55,13 @@ document.querySelector('#shelf a[href="viewer.html"]').addEventListener("click",
   fetch(API_URL + "/catalog/click", {
     method: "POST",
     body: new URLSearchParams({book_no: "present1"}),
+    keepalive: true
+  }).catch(() => {});
+});
+document.getElementById("present2").addEventListener("click", () => {
+  fetch(API_URL + "/catalog/click", {
+    method: "POST",
+    body: new URLSearchParams({book_no: "present2"}),
     keepalive: true
   }).catch(() => {});
 });
