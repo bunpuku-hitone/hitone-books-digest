@@ -1,4 +1,5 @@
 const BOOKS = [
+  {"no":9,"status":"coming","title":"99万円で、年利30％超を狙う マイ・データセンターを作る","image":"book9.jpg","detail":"coming9.html"},
   {"no":5,"status":"published","title":"どうしたら、1か月でKindle出版できるの？","image":"book5.jpg","amazon":"https://www.amazon.co.jp/dp/B0HJWKN858"},
   {"no":6,"status":"published","title":"なぜ私は、儲からない仕事を毎日しているのか？","image":"book6.jpg","amazon":"https://www.amazon.co.jp/dp/B0HJZ3FH7K"},
   {"no":7,"status":"published","title":"こんな在宅ワーク、あり？ インフレ時代の「年金＋α」、どうする？","image":"book7.jpg","amazon":"https://www.amazon.co.jp/dp/B0HK36PQ8B"},
@@ -7,7 +8,6 @@ const BOOKS = [
   {"no":3,"status":"published","title":"64歳、定年後の仕事。02 高血圧を薬なしで見ていた記録","image":"book3.jpg","amazon":"https://www.amazon.co.jp/dp/B0H1KS9QG4"},
   {"no":4,"status":"published","title":"64歳、定年後の仕事。03 雑談から生まれたYouTube","image":"book4.jpg","amazon":"https://www.amazon.co.jp/dp/B0GX33FHBL"},
   {"no":8,"status":"coming","title":"定年後、AIで仕事とお金に困らない方法はあるのか？","image":"book8.jpg","detail":"coming.html"},
-  {"no":9,"status":"coming","title":"99万円で、年利30％超を狙う マイ・データセンターを作る","image":"book9.jpg","detail":"coming9.html"},
   {"no":10,"status":"coming","title":"あなたの人生を、本にしてみませんか？","image":"book10.jpg","detail":"coming10.html"}
 ];
 
