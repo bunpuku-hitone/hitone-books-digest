@@ -28,16 +28,7 @@ footer{text-align:center;color:#aaa;font-size:12px;margin-top:36px}
 <h1>雑談家ひとねの本</h1>
 <p class="lead">【植福会議合同会社カタログ】</p>
 <p class="lead">気になる表紙をタップ</p>
-<section id="shelf">
-<a class="book" href="viewer.html">
-  <img class="cover" src="present1.jpg" alt="はじまった、副業なしで副収入 プレゼント版">
-  <div class="tap">表紙をタップ → プレゼント版を読む</div>
-</a>
-<a class="book" id="present2" href="viewer2.html">
-  <img class="cover" src="present2.jpg" alt="あなたの商品、必要な人に届いていますか？ あなたの商品告知パッケージ">
-  <div class="tap">表紙をタップ → 商品告知パッケージを読む</div>
-</a>
-</section>
+<section id="shelf"></section>
 <a class="catalog-link next-link" id="nextCatalog" href="#" hidden>
   次のWebカタログへ
   <span>16冊目の入口</span>
@@ -51,23 +42,9 @@ footer{text-align:center;color:#aaa;font-size:12px;margin-top:36px}
 <script src="books.js"></script>
 <script>
 const API_URL = "https://aiuemon-web-1.onrender.com";
-document.querySelector('#shelf a[href="viewer.html"]').addEventListener("click", () => {
-  fetch(API_URL + "/catalog/click", {
-    method: "POST",
-    body: new URLSearchParams({book_no: "present1"}),
-    keepalive: true
-  }).catch(() => {});
-});
-document.getElementById("present2").addEventListener("click", () => {
-  fetch(API_URL + "/catalog/click", {
-    method: "POST",
-    body: new URLSearchParams({book_no: "present2"}),
-    keepalive: true
-  }).catch(() => {});
-});
 const shelf = document.getElementById("shelf");
-const published = BOOKS.slice(0, 15);
-published.forEach(b => {
+
+function addBook(b) {
   const a = document.createElement("a");
   a.className = "book";
   if (b.status === "coming") {
@@ -93,7 +70,41 @@ published.forEach(b => {
   tap.textContent = b.status === "coming" ? "表紙をタップ → Coming Soon" : "表紙をタップ → Amazon";
   a.append(img, tap);
   shelf.appendChild(a);
+}
+
+const published = BOOKS.slice(0, 15);
+const book9 = published.find(b => b.no === 9);
+if (book9) addBook(book9);
+
+const present1 = document.createElement("a");
+present1.className = "book";
+present1.href = "viewer.html";
+present1.innerHTML = '<img class="cover" src="present1.jpg" alt="はじまった、副業なしで副収入 プレゼント版"><div class="tap">表紙をタップ → プレゼント版を読む</div>';
+present1.addEventListener("click", () => {
+  fetch(API_URL + "/catalog/click", {
+    method: "POST",
+    body: new URLSearchParams({book_no: "present1"}),
+    keepalive: true
+  }).catch(() => {});
 });
+shelf.appendChild(present1);
+
+const present2 = document.createElement("a");
+present2.className = "book";
+present2.id = "present2";
+present2.href = "viewer2.html";
+present2.innerHTML = '<img class="cover" src="present2.jpg" alt="あなたの商品、必要な人に届いていますか？ あなたの商品告知パッケージ"><div class="tap">表紙をタップ → 商品告知パッケージを読む</div>';
+present2.addEventListener("click", () => {
+  fetch(API_URL + "/catalog/click", {
+    method: "POST",
+    body: new URLSearchParams({book_no: "present2"}),
+    keepalive: true
+  }).catch(() => {});
+});
+shelf.appendChild(present2);
+
+published.filter(b => b.no !== 9).forEach(addBook);
+
 if (published.length === 0) {
   const c = document.createElement("div");
   c.className = "coming";
