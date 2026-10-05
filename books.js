@@ -1,4 +1,5 @@
 const BOOKS = [
+  {"no":12,"status":"coming","title":"集客しないで？ 売り上げ作れますか？","image":"book12.jpg","detail":"coming12.html"},
   {"no":9,"status":"coming","title":"99万円で、年利30％超を狙う マイ・データセンターを作る","image":"book9.jpg","detail":"coming9.html"},
   {"no":5,"status":"published","title":"どうしたら、1か月でKindle出版できるの？","image":"book5.jpg","amazon":"https://www.amazon.co.jp/dp/B0HJWKN858"},
   {"no":6,"status":"published","title":"なぜ私は、儲からない仕事を毎日しているのか？","image":"book6.jpg","amazon":"https://www.amazon.co.jp/dp/B0HJZ3FH7K"},
