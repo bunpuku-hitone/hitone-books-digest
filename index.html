@@ -119,6 +119,9 @@ function addBook(b) {
 }
 
 const published = BOOKS.slice(0, 15);
+const book12 = published.find(b => b.no === 12);
+if (book12) addBook(book12);
+
 const book9 = published.find(b => b.no === 9);
 if (book9) addBook(book9);
 
@@ -149,7 +152,7 @@ present2.addEventListener("click", () => {
 });
 shelf.appendChild(present2);
 
-published.filter(b => b.no !== 9).forEach(addBook);
+published.filter(b => b.no !== 12 && b.no !== 9).forEach(addBook);
 
 if (published.length === 0) {
   const c = document.createElement("div");
