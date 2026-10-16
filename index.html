@@ -121,6 +121,20 @@ const published = BOOKS.slice(0, 15);
 const book12 = published.find(b => b.no === 12);
 if (book12) addBook(book12);
 
+const present3 = document.createElement("a");
+present3.className = "book";
+present3.id = "present3";
+present3.href = "viewer3.html";
+present3.innerHTML = '<img class="cover" src="present3.jpg" alt="魔法みたいな箱。売っています。"><div class="tap">画像をタップ → 90秒プレゼンテーションを読む</div>';
+present3.addEventListener("click", () => {
+  fetch(API_URL + "/catalog/click", {
+    method: "POST",
+    body: new URLSearchParams({book_no: "present3"}),
+    keepalive: true
+  }).catch(() => {});
+});
+shelf.appendChild(present3);
+
 const adSample01 = document.createElement("a");
 adSample01.className = "book";
 adSample01.href = "https://www.youtube.com/watch?v=iH04dACukCo&t=83s";
