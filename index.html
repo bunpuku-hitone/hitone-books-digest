@@ -37,6 +37,9 @@ footer{text-align:center;color:#aaa;font-size:12px;margin-top:36px}
 <a class="today" id="todayAiuemon" href="#" aria-label="今日のあい右衛門を再生">
   <img src="today-aiuemon.jpg" alt="今日のあい右衛門">
 </a>
+<a class="today" id="presentVideo" href="#" aria-label="プレゼント動画を再生">
+  <img src="present-video.jpg" alt="プレゼント動画">
+</a>
 <div class="modal" id="todayModal" aria-hidden="true">
   <div class="modal-box">
     <button class="modal-close" id="todayClose" aria-label="閉じる">×</button>
@@ -64,6 +67,7 @@ const todayModal = document.getElementById("todayModal");
 const todayClose = document.getElementById("todayClose");
 const todayFrame = document.getElementById("todayFrame");
 let todayVideoId = "";
+let presentVideoId = "";
 
 fetch("Today.txt?ts=" + Date.now(), {cache:"no-store"})
   .then(r => r.text())
@@ -73,10 +77,27 @@ fetch("Today.txt?ts=" + Date.now(), {cache:"no-store"})
   })
   .catch(() => {});
 
+fetch("Present-video.txt?ts=" + Date.now(), {cache:"no-store"})
+  .then(r => { if (!r.ok) throw new Error("Video link unavailable"); return r.text(); })
+  .then(url => {
+    const m = url.trim().match(/(?:shorts\/|youtu\.be\/|v=)([A-Za-z0-9_-]{11})/);
+    if (m) presentVideoId = m[1];
+  })
+  .catch(() => {});
+
 todayAiuemon.addEventListener("click", e => {
   e.preventDefault();
   if (!todayVideoId) return;
+  todayFrame.title = "今日のあい右衛門";
   todayFrame.src = "https://www.youtube.com/embed/" + todayVideoId + "?autoplay=1&playsinline=1";
+  todayModal.classList.add("open");
+  todayModal.setAttribute("aria-hidden","false");
+});
+presentVideo.addEventListener("click", e => {
+  e.preventDefault();
+  if (!presentVideoId) return;
+  todayFrame.title = "プレゼント動画";
+  todayFrame.src = "https://www.youtube.com/embed/" + presentVideoId + "?autoplay=1&playsinline=1";
   todayModal.classList.add("open");
   todayModal.setAttribute("aria-hidden","false");
 });
