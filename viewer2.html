@@ -36,7 +36,7 @@ const pages = document.getElementById("pages");
 const status = document.getElementById("status");
 
 try {
-  const pdf = await pdfjsLib.getDocument("./%E3%83%97%E3%83%AC%E3%82%BC%E3%83%B3%E3%83%882.pdf").promise;
+  const pdf = await pdfjsLib.getDocument("./present2.pdf").promise;
   status.remove();
 
   for (let n = 1; n <= pdf.numPages; n++) {
