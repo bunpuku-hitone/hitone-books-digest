@@ -121,6 +121,14 @@ const published = BOOKS.slice(0, 15);
 const book12 = published.find(b => b.no === 12);
 if (book12) addBook(book12);
 
+const adSample01 = document.createElement("a");
+adSample01.className = "book";
+adSample01.href = "https://www.youtube.com/watch?v=iH04dACukCo&t=83s";
+adSample01.target = "_blank";
+adSample01.rel = "noopener";
+adSample01.innerHTML = '<img class="cover" src="ad-sample01.png" alt="広告サンプル：35歳以上のシンガーの頂点は誰だ!?"><div class="tap">画像をタップ → YouTube動画を見る</div>';
+shelf.appendChild(adSample01);
+
 const book9 = published.find(b => b.no === 9);
 if (book9) addBook(book9);
 
