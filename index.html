@@ -178,19 +178,6 @@ if (book12) addBook(book12);
 const book9 = published.find(b => b.no === 9);
 if (book9) addBook(book9);
 
-const present1 = document.createElement("a");
-present1.className = "book";
-present1.href = "viewer.html";
-present1.innerHTML = '<img class="cover" src="present1.jpg" alt="はじまった、副業なしで副収入 プレゼント版"><div class="tap">表紙をタップ → プレゼント版を読む</div>';
-present1.addEventListener("click", () => {
-  fetch(API_URL + "/catalog/click", {
-    method: "POST",
-    body: new URLSearchParams({book_no: "present1"}),
-    keepalive: true
-  }).catch(() => {});
-});
-shelf.appendChild(present1);
-
 const present2 = document.createElement("a");
 present2.className = "book";
 present2.id = "present2";
