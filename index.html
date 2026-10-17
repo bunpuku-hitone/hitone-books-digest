@@ -150,9 +150,6 @@ function addBook(b) {
 }
 
 const published = BOOKS.slice(0, 15);
-const book12 = published.find(b => b.no === 12);
-if (book12) addBook(book12);
-
 const present3 = document.createElement("a");
 present3.className = "book";
 present3.id = "present3";
@@ -174,6 +171,9 @@ adSample01.target = "_blank";
 adSample01.rel = "noopener";
 adSample01.innerHTML = '<img class="cover" src="ad-00001.jpg" alt="橋村佳奈美 TOP ARTIST CONTEST 2026 FINAL 決勝出場"><div class="tap">画像をタップ → Facebook告知ページを見る</div>';
 shelf.appendChild(adSample01);
+
+const book12 = published.find(b => b.no === 12);
+if (book12) addBook(book12);
 
 const book9 = published.find(b => b.no === 9);
 if (book9) addBook(book9);
