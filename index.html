@@ -155,7 +155,7 @@ function addBook(b) {
   shelf.appendChild(a);
 }
 
-const published = BOOKS.slice(0, 15);
+const published = BOOKS.slice(0, 15).filter(b => !["book3.jpg", "book4.jpg"].includes(b.image));
 const present3 = document.createElement("a");
 present3.className = "book";
 present3.id = "present3";
